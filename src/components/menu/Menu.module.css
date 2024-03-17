@@ -101,8 +101,8 @@
     font-size: 14px;
 }
 
-@media screen and (max-width: 1040px) {
-    .image{
-        display: none;
+@media screen and (max-width: 1024px) {
+    .container{
+        display: none;;
     }
 }
