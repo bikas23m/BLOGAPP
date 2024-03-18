@@ -3,16 +3,17 @@
 import Link from 'next/link'
 import styles from './AuthLink.module.css'
 import { useState } from 'react'
+import { signOut, useSession } from 'next-auth/react'
 
 //return user options based on authentication status
-function UserOptions({ isAuthenticated }) {
-    if (!isAuthenticated) {
+function UserOptions({ status }) {
+    if (status !== 'authenticated' ) {
         return <Link href="/login" className={styles.link}>Login</Link>
     }
     return (
         <>
             <Link href="/write" className={styles.link}>Write</Link>
-            <span className={styles.link}>logout</span>
+            <span className={styles.link} onClick={signOut}>logout</span>
         </>
     )
 }
@@ -20,14 +21,14 @@ function UserOptions({ isAuthenticated }) {
 //return jsx based on user authenticatin status
 const AuthLink = () => {
 
+    const { status } = useSession();
+
     const [open, setOpen] = useState(false);
 
-    //tamporary
-    const isAuthenticated = true;
     return (
         <>
             <UserOptions
-                isAuthenticated={isAuthenticated}
+                status={ status }
             />
             <div className={styles.burger} onClick={() => setOpen(!open)}>
                 <div className={styles.line}></div>
@@ -41,12 +42,12 @@ const AuthLink = () => {
                         <Link href='/'>Contact</Link>
                         <Link href='/'>About</Link>
                         {
-                            !isAuthenticated ? (
+                            (status !== 'authenticated' ) ? (
                                 <Link href="/login">Login</Link>
                             ) :
                             (<>
                                 <Link href="/write">Write</Link>
-                                <span>logout</span>
+                                <span onClick={signOut} style={{cursor:"pointer"}}>logout</span>
                             </>)
                         }
                     </div>
