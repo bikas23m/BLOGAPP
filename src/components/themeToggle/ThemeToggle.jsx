@@ -3,7 +3,7 @@
 import { useContext } from 'react';
 import styles from './ThemeToggle.module.css';
 import Image from 'next/image';
-import { ThemeContext } from '@/context/ThemeContext';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const ThemeToggle = () => {
 
